@@ -11,19 +11,34 @@
     <script src="https://js.arcgis.com/4.27/"></script>
 
     <script>
-        require(["esri/config", "esri/Map", "esri/views/MapView"], function(esriConfig, Map, MapView) {
+        require(["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer"], function(esriConfig, Map, MapView, FeatureLayer) {
         esriConfig.apiKey = "AAPK4f0515b3554d4bfe888de7d04e0aa811xD7Nn_Ud83_LKhFDiy90ZPk_JaTuZEFBDUB3u7oRXTEunuSrXErrx0NtnC1vKu2E";
 
             const map = new Map({
                 basemap: "arcgis-topographic" // Basemap layer service
+                
             });
 
             const view = new MapView({
-            map: map,
-            center: [21.04390, 52.25617], // Longitude, latitude
-            zoom: 15, // Zoom level
-            container: "viewDiv" // Div element
+                map: map,
+                // center: [21.04390, 52.25617], // Longitude, latitude
+                center: [-118.80543,34.02700], // Longitude, latitude
+                zoom: 15, // Zoom level
+                container: "viewDiv" // Div element
             });
+
+            //Trailheads feature layer (points)
+            const trailheadsLayer = new FeatureLayer({
+                url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0"
+                // url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/origins/FeatureServer/0"
+            });
+            map.add(trailheadsLayer);
+
+            //Trails feature layer (lines)
+            const trailsLayer = new FeatureLayer({
+                url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0"
+            });
+            map.add(trailsLayer, 0);
         })
     </script>
 </head>
